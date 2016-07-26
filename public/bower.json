@@ -27,7 +27,7 @@
     },
     "bootswatch": {
       "main": [
-        "darkly/bootstrap.css"
+        "slate/bootstrap.css"
       ]
     }
   }

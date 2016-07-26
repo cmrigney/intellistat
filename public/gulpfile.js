@@ -94,25 +94,28 @@ gulp.task('start:server:test', function() {
 });
 
 gulp.task('watch', function () {
-  $.watch(paths.styles)
-    .pipe($.plumber())
-    .pipe(styles())
-    .pipe($.connect.reload());
+  // $.watch(paths.styles)
+  //   .pipe($.plumber())
+  //   .pipe(styles())
+  //   .pipe($.connect.reload());
 
-  $.watch(paths.views.files)
-    .pipe($.plumber())
-    .pipe($.connect.reload());
+  // $.watch(paths.views.files)
+  //   .pipe($.plumber())
+  //   .pipe($.connect.reload());
 
-  $.watch(paths.scripts)
-    .pipe($.plumber())
-    .pipe(lintScripts())
-    .pipe($.connect.reload());
+  // $.watch(paths.scripts)
+  //   .pipe($.plumber())
+  //   .pipe(lintScripts())
+  //   .pipe($.connect.reload());
 
-  $.watch(paths.test)
-    .pipe($.plumber())
-    .pipe(lintScripts());
+  // $.watch(paths.test)
+  //   .pipe($.plumber())
+  //   .pipe(lintScripts());
 
-  gulp.watch('bower.json', ['bower']);
+  //gulp.watch('bower.json', ['bower']);
+  gulp.watch(paths.scripts, ['client:build']);
+  gulp.watch(paths.views.files, ['client:build']);
+  gulp.watch(paths.views.main, ['client:build']);
 });
 
 gulp.task('serve', function (cb) {
@@ -209,7 +212,7 @@ gulp.task('copy:extras', function () {
 });
 
 gulp.task('copy:misc', function() {
-  return gulp.src([yeoman.app + '/favicon.ico', yeoman.app + '/robots.txt'])
+  return gulp.src([yeoman.app + '/favicon.ico', yeoman.app + 'robots.txt'])
   .pipe(gulp.dest(yeoman.dist));
 });
 
@@ -225,7 +228,7 @@ gulp.task('copy:bower:fonts', function () {
 });
 
 gulp.task('build', ['clean:dist'], function () {
-  runSequence(['images', 'copy:extras', 'copy:fonts', 'copy:misc', 'copy:bower:fonts', 'client:build']);
+  runSequence(['images', 'copy:extras', 'copy:fonts', 'copy:misc', 'copy:bower:fonts', 'client:build', 'watch']);
 });
 
 gulp.task('default', ['build']);
