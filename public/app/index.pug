@@ -16,30 +16,30 @@ html(ng-app="intellistatApp")
     // endbuild
   body
     div(style="width: 800px; height: 480px; max-height: 480px; overflow: hidden")
-      .header
-        .navbar.navbar-default(role='navigation')
-          .container
-            .navbar-header
-              button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#js-navbar-collapse')
-                span.sr-only Toggle navigation
-                span.icon-bar
-                span.icon-bar
-                span.icon-bar
-              a.navbar-brand(href='#/') intellistat
-            #js-navbar-collapse.collapse.navbar-collapse
-              ul.nav.navbar-nav
-                li.active
-                  a(href='#/') Home
-                li
-                  a(ng-href='#/about') About
-                li
-                  a(ng-href='#/') Contact
-      .container
+      //- .header
+      //-   .navbar.navbar-default(role='navigation')
+      //-     .container
+      //-       .navbar-header
+      //-         button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#js-navbar-collapse')
+      //-           span.sr-only Toggle navigation
+      //-           span.icon-bar
+      //-           span.icon-bar
+      //-           span.icon-bar
+      //-         a.navbar-brand(href='#/') intellistat
+      //-       #js-navbar-collapse.collapse.navbar-collapse
+      //-         ul.nav.navbar-nav
+      //-           li.active
+      //-             a(href='#/') Home
+      //-           li
+      //-             a(ng-href='#/about') About
+      //-           li
+      //-             a(ng-href='#/') Contact
+      .container(style="margin-left: 0; margin-right: 0; max-width: 800px; width: 800px")
         div(ng-view='')
-      .footer
-        .container
-          p
-            span.glyphicon.glyphicon-heart
+      //- .footer
+      //-   .container
+      //-     p
+      //-       span.glyphicon.glyphicon-heart
       // Google Analytics: change UA-XXXXX-X to be your site's ID
       //- script.
       //-   r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)

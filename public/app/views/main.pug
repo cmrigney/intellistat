@@ -1,16 +1,37 @@
 
-.jumbotron
-  h1 &apos;Allo, &apos;Allo!
-  p.lead
-    img(src='images/yeoman.png', alt="I'm Yeoman")
-    br
-  p
-    a.btn.btn-lg.btn-success(ng-href='#/')
-      span.glyphicon.glyphicon-ok
-.row.marketing
-  h4 HTML5 Boilerplate
-  p
-  h4 Angular
-  p
-  h4 Karma
-  p Spectacular Test Runner for JavaScript.
+.row(style="height: 240px; overflow: hidden;")
+  .col-xs-8(style="margin-top: 15px;")
+    .row(style="margin-left: 5px")
+      a.btn.btn-lg.btn-primary(ng-href="#/")
+        span.glyphicon.glyphicon-cog
+    .row(style="margin-left: 5px")
+      p 
+        h2 Today 84&deg; F and 
+          em.wi.wi-day-sunny
+          |  with 54% RH 
+        h3
+          span.text-danger(style="margin-right: 10px") High: 85&deg; F
+          span.text-info(style="margin-right: 10px") Low: 77&deg; F
+          span
+            em.wi.wi-sprinkle.text-info
+            |  0%
+
+  .col-xs-4
+    .jumbotron(style="height: 220px; padding: 0; margin-top: 15px")
+      .row
+        h3 Mode: 
+          span.text-danger Heat
+        h4(style="margin-top: 20px") Current Temperature
+        h1 74&deg; F
+.row(style="height: 240px; overflow: hidden")
+  .col-xs-8
+  .col-xs-4
+    .jumbotron(style="height: 220px; padding: 0")
+      .row
+        h4 Set Temperature
+        h2.text-primary(style="font-size: 4em") 74&deg; F
+      .row.text-center
+          a.btn.btn-lg.btn-info(ng-href='#/', style="margin-right: 15px")
+            span.glyphicon.glyphicon-arrow-down(style="font-size: 2em")
+          a.btn.btn-lg.btn-danger(ng-href='#/')
+            span.glyphicon.glyphicon-arrow-up(style="font-size: 2em")

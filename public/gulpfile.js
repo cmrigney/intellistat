@@ -222,13 +222,20 @@ gulp.task('copy:fonts', function () {
 });
 
 gulp.task('copy:bower:fonts', function () {
-  return gulp.src('bower_components/**/*.{eot,svg,ttf,woff,woff2}')
+  return gulp.src('bower_components/*/fonts/**/*.{eot,svg,ttf,woff,woff2}')
     .pipe(rename({ dirname: '' }))
     .pipe(gulp.dest(yeoman.dist + '/fonts'));
 });
 
+gulp.task('copy:bower:font', function () {
+  return gulp.src('bower_components/*/font/**/*.{eot,svg,ttf,woff,woff2}')
+    .pipe(rename({ dirname: '' }))
+    .pipe(gulp.dest(yeoman.dist + '/font'));
+});
+
+
 gulp.task('build', ['clean:dist'], function () {
-  runSequence(['images', 'copy:extras', 'copy:fonts', 'copy:misc', 'copy:bower:fonts', 'client:build', 'watch']);
+  runSequence(['images', 'copy:extras', 'copy:fonts', 'copy:misc', 'copy:bower:fonts', 'copy:bower:font', 'client:build', 'watch']);
 });
 
 gulp.task('default', ['build']);
