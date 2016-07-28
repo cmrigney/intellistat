@@ -1,9 +1,12 @@
-
+//- Add time and date
 .row(style="height: 240px; overflow: hidden;")
   .col-xs-8(style="margin-top: 15px;")
     .row(style="margin-left: 5px")
-      a.btn.btn-lg.btn-primary(ng-href="#/")
-        span.glyphicon.glyphicon-cog
+      .col-xs-5(style="padding: 0")
+        h3(style="margin: 0") 7/26/2016 5:30 PM
+      .col-xs-7
+        a.pull-right.btn.btn-lg.btn-primary(ng-href="#/")
+          span.glyphicon.glyphicon-cog
     .row(style="margin-left: 5px")
       p 
         h2 Today 84&deg; F and 
@@ -24,7 +27,8 @@
         h4(style="margin-top: 20px") Current Temperature
         h1 74&deg; F
 .row(style="height: 240px; overflow: hidden")
-  .col-xs-8
+  .col-xs-8(ng-controller="NewsController")
+    h3(ng-if="loadingNews") Loading news...
   .col-xs-4
     .jumbotron(style="height: 220px; padding: 0")
       .row
