@@ -4,6 +4,7 @@
     .row(style="margin-left: 5px")
       .col-xs-5(style="padding: 0")
         h3(style="margin: 0") 7/26/2016 5:30 PM
+        h3(style="margin: 0") Wednesday
       .col-xs-7
         a.pull-right.btn.btn-lg.btn-primary(ng-href="#/")
           span.glyphicon.glyphicon-cog
@@ -28,7 +29,17 @@
         h1 74&deg; F
 .row(style="height: 240px; overflow: hidden")
   .col-xs-8(ng-controller="NewsController")
-    h3(ng-if="loadingNews") Loading news...
+    .panel.panel-success(style="height: 220px")
+      .panel-heading
+        h3.panel-title News
+      .panel-body(style="padding-right: 5px; padding-left: 5px; padding-top: 5px; overflow-x: scroll; white-space: nowrap")
+        h3(ng-if="loadingNews") Loading news...
+        .col-xs-4(ng-if="!loadingNews", ng-repeat="article in news.articles", style="padding-right: 3px; padding-left: 3px; display: inline-block; float: none; white-space: normal")
+          .well(style="padding: 10px; height: 168px; overflow-y: scroll")
+            img.img-responsive(ng-src="{{ article.urlToImage }}")
+            p(style="margin-top: 3px") {{ article.title }}
+            small {{ article.description }}
+
   .col-xs-4
     .jumbotron(style="height: 220px; padding: 0")
       .row
