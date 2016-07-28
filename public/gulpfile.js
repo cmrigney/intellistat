@@ -11,6 +11,7 @@ var runSequence = require('run-sequence');
 var pug = require('gulp-pug');
 var path = require('path');
 var rename = require('gulp-rename');
+var replace = require('gulp-replace-task');
 
 var yeoman = {
   app: require('./bower.json').appPath || 'app',
@@ -174,6 +175,14 @@ gulp.task('client:build', ['html', 'styles'], function () {
     }))
     .pipe($.useref({searchPath: [yeoman.app, '.tmp']}))
     .pipe(jsFilter)
+    .pipe(replace({
+      patterns: [
+        {
+          match: 'APIKEY',
+          replacement: require('../APIKEYS.json').newsapi
+        }
+      ]
+    }))
     .pipe($.ngAnnotate())
     .pipe($.uglify())
     .pipe(jsFilter.restore())
