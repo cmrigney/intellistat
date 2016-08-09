@@ -1,13 +1,11 @@
 //- Add time and date
 .row(style="height: 240px; overflow: hidden;")
-  .col-xs-8(style="margin-top: 15px;")
+  .col-xs-8
+    .row(ng-include="'views/header.html'")
     .row(style="margin-left: 5px")
       .col-xs-5(style="padding: 0")
         h3(style="margin: 0") 7/26/2016 5:30 PM
         h3(style="margin: 0") Wednesday
-      .col-xs-7
-        a.pull-right.btn.btn-lg.btn-primary(ng-href="#/")
-          span.glyphicon.glyphicon-cog
     .row(style="margin-left: 5px")
       p 
         h2 Today 84&deg; F and 
@@ -37,7 +35,8 @@
         .col-xs-4(ng-if="!loadingNews", ng-repeat="article in news.articles", style="padding-right: 3px; padding-left: 3px; display: inline-block; float: none; white-space: normal")
           .well(style="padding: 10px; height: 168px; overflow-y: scroll")
             img.img-responsive(ng-src="{{ article.urlToImage }}")
-            p(style="margin-top: 3px") {{ article.title }}
+            p(style="margin-top: 3px")
+              a(href="", ng-click="openNews(article)") {{ article.title }}
             small {{ article.description }}
 
   .col-xs-4

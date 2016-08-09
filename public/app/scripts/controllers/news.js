@@ -5,8 +5,8 @@
     .module('intellistatApp')
     .controller('NewsController', NewsController);
 
-  NewsController.$inject = ['$scope', 'NewsService'];
-  function NewsController($scope, NewsService) {
+  NewsController.$inject = ['$scope', 'NewsService', '$location'];
+  function NewsController($scope, NewsService, $location) {
     var vm = this;
 
     activate();
@@ -25,6 +25,11 @@
         console.log($scope.news);
         $scope.loadingNews = false;
       });
+
+      $scope.openNews = function(article) {
+        NewsService.selectedNews = article.url;
+        $location.path('/newsfull');
+      };
     }
   }
 })();

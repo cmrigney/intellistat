@@ -30,6 +30,10 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/newsfull', {
+        templateUrl: 'views/newsfull.html',
+        controller: 'NewsFullController'
+      })
       .otherwise({
         redirectTo: '/'
       });
