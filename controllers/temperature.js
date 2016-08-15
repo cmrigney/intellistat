@@ -3,11 +3,13 @@
 var Promise = require('bluebird');
 var Controller = require('./base.js');
 
-//var dht = require('node-dht-sensor');
+var dht = require('node-dht-sensor');
+/*
 var dht = {
   initialize: function() {},
   read: function() { return { temperature: 25, humidity: 50, isValid: true }; }
 };
+*/
 
 class TemperatureController extends Controller {
   constructor() {
