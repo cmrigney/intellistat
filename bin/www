@@ -21,6 +21,11 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+var io = require('socket.io')(server);
+
+require('../controller-hookup.js')(app, io);
+require('../error-handlers.js')(app);
+
 /**
  * Listen on provided port, on all network interfaces.
  */
