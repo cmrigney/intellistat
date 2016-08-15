@@ -13,6 +13,7 @@
     "express": "~4.13.1",
     "jade": "~1.11.0",
     "morgan": "~1.6.1",
+    "node-dht-sensor": "0.0.13",
     "serve-favicon": "~2.3.0"
   }
 }
