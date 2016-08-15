@@ -80,8 +80,7 @@
       var result = { isConnected: false };
       var sock = io.connect({
         rejectUnauthorized: true,
-        forceNew: true,
-        path: '/veart/socket.io',
+        forceNew: true
       });
 
       result.socket = sock;

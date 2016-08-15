@@ -1,8 +1,6 @@
 'use strict';
 
-//Currently not installed so this will break
-//var FMTuner = require('node-rpi-si4703');
-var FMTuner = null;
+var FMTuner = require('node-rpi-si4703');
 var Promise = require('bluebird');
 var Controller = require('./base.js');
 

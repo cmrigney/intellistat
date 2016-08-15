@@ -1,51 +1,52 @@
 //- Add time and date
-.row(style="height: 240px; overflow: hidden;")
-  .col-xs-8
-    .row(ng-include="'views/header.html'")
-    .row(style="margin-left: 5px")
-      .col-xs-5(style="padding: 0")
-        h3(style="margin: 0") 7/26/2016 5:30 PM
-        h3(style="margin: 0") Wednesday
-    .row(style="margin-left: 5px")
-      p 
-        h2 Today 84&deg; F and 
-          em.wi.wi-day-sunny
-          |  with 54% RH 
-        h3
-          span.text-danger(style="margin-right: 10px") High: 85&deg; F
-          span.text-info(style="margin-right: 10px") Low: 77&deg; F
-          span
-            em.wi.wi-sprinkle.text-info
-            |  0%
+div(ng-controller="TemperatureController")
+  .row(style="height: 240px; overflow: hidden;")
+    .col-xs-8
+      .row(ng-include="'views/header.html'")
+      .row(style="margin-left: 5px")
+        .col-xs-5(style="padding: 0")
+          h3(style="margin: 0") 7/26/2016 5:30 PM
+          h3(style="margin: 0") Wednesday
+      .row(style="margin-left: 5px")
+        p 
+          h2 Today 84&deg; F and 
+            em.wi.wi-day-sunny
+            |  with 54% RH 
+          h3
+            span.text-danger(style="margin-right: 10px") High: 85&deg; F
+            span.text-info(style="margin-right: 10px") Low: 77&deg; F
+            span
+              em.wi.wi-sprinkle.text-info
+              |  0%
 
-  .col-xs-4
-    .jumbotron(style="height: 220px; padding: 0; margin-top: 15px")
-      .row
-        h3 Mode: 
-          span.text-danger Heat
-        h4(style="margin-top: 20px") Current Temperature
-        h1 74&deg; F
-.row(style="height: 240px; overflow: hidden")
-  .col-xs-8(ng-controller="NewsController")
-    .panel.panel-success(style="height: 220px")
-      .panel-heading
-        h3.panel-title News
-      .panel-body(style="padding-right: 5px; padding-left: 5px; padding-top: 5px; overflow-x: scroll; white-space: nowrap")
-        h3(ng-if="loadingNews") Loading news...
-        .col-xs-4(ng-if="!loadingNews", ng-repeat="article in news.articles", style="padding-right: 3px; padding-left: 3px; display: inline-block; float: none; white-space: normal")
-          .well(style="padding: 10px; height: 168px; overflow-y: scroll")
-            img.img-responsive(ng-src="{{ article.urlToImage }}")
-            p(style="margin-top: 3px")
-              a(href="", ng-click="openNews(article)") {{ article.title }}
-            small {{ article.description }}
+    .col-xs-4
+      .jumbotron(style="height: 220px; padding: 0; margin-top: 15px")
+        .row
+          h3 Mode: 
+            span.text-danger Heat
+          h4(style="margin-top: 20px") Current Temperature
+          h1 {{ temp.toFixed(0) }}&deg; F
+  .row(style="height: 240px; overflow: hidden")
+    .col-xs-8(ng-controller="NewsController")
+      .panel.panel-success(style="height: 220px")
+        .panel-heading
+          h3.panel-title News
+        .panel-body(style="padding-right: 5px; padding-left: 5px; padding-top: 5px; overflow-x: scroll; white-space: nowrap")
+          h3(ng-if="loadingNews") Loading news...
+          .col-xs-4(ng-if="!loadingNews", ng-repeat="article in news.articles", style="padding-right: 3px; padding-left: 3px; display: inline-block; float: none; white-space: normal")
+            .well(style="padding: 10px; height: 168px; overflow-y: scroll")
+              img.img-responsive(ng-src="{{ article.urlToImage }}")
+              p(style="margin-top: 3px")
+                a(href="", ng-click="openNews(article)") {{ article.title }}
+              small {{ article.description }}
 
-  .col-xs-4
-    .jumbotron(style="height: 220px; padding: 0")
-      .row
-        h4 Set Temperature
-        h2.text-primary(style="font-size: 4em") 74&deg; F
-      .row.text-center
-          a.btn.btn-lg.btn-info(ng-href='#/', style="margin-right: 15px")
-            span.glyphicon.glyphicon-arrow-down(style="font-size: 2em")
-          a.btn.btn-lg.btn-danger(ng-href='#/')
-            span.glyphicon.glyphicon-arrow-up(style="font-size: 2em")
+    .col-xs-4
+      .jumbotron(style="height: 220px; padding: 0")
+        .row
+          h4 Set Temperature
+          h2.text-primary(style="font-size: 4em") {{ setTemp.toFixed(0) }}&deg; F
+        .row.text-center
+            a.btn.btn-lg.btn-info(ng-href='', style="margin-right: 15px", ng-click="changeTemp(-1)")
+              span.glyphicon.glyphicon-arrow-down(style="font-size: 2em")
+            a.btn.btn-lg.btn-danger(ng-href='')
+              span.glyphicon.glyphicon-arrow-up(style="font-size: 2em", ng-click="changeTemp(1)")
