@@ -3,6 +3,7 @@
 var FMTuner = require('node-rpi-si4703');
 var Promise = require('bluebird');
 var Controller = require('./base.js');
+var pins = require('../pins.js');
 
 Promise.promisifyAll(FMTuner);
 
@@ -10,6 +11,7 @@ class FMRadioController extends Controller {
   constructor() {
     super();
     this.powerState = false; //off
+    this.tuner = new FMTuner(pins.FMTunerReset, pins.FMTunerI2CSDSA);
   }
 
   SetupRoutes(app, io) {
@@ -21,7 +23,7 @@ class FMRadioController extends Controller {
       io.on('fm:power-on', () => {
         if(this.powerState)
           return;
-        FMTuner.powerOnAsync().then(() => {
+        this.tuner.powerOnAsync().then(() => {
           this.powerState = true;
           io.emit('fm:power-changed', true);
         }).catch(errorFn);
@@ -30,21 +32,21 @@ class FMRadioController extends Controller {
       io.on('fm:power-off', () => {
         if(!this.powerState)
           return;
-        FMTuner.powerOffAsync().then(() => {
+        this.tuner.powerOffAsync().then(() => {
           this.powerState = false;
           io.emit('fm:power-changed', false);
         }).catch(errorFn);
       });
 
       io.on('fm:set-channel', (channel) => {
-        FMTuner.setChannelAsync(channel).then(() => {
+        this.tuner.setChannelAsync(channel).then(() => {
           io.emit('fm:channel-changed', channel);
         }).catch(errorFn);
       });
 
       io.on('fm:seek-up', () => {
-        FMTuner.seekUpAsync()
-        .then(FMTuner.getChannel.bind(FMTuner))
+        this.tuner.seekUpAsync()
+        .then(this.tuner.getChannel.bind(this.tuner))
         .then((channel) => {
           io.emit('fm:channel-changed', channel);
         })
@@ -52,8 +54,8 @@ class FMRadioController extends Controller {
       });
 
       io.on('fm:seek-down', () => {
-        FMTuner.seekDownAsync()
-        .then(FMTuner.getChannelAsync.bind(FMTuner))
+        this.tuner.seekDownAsync()
+        .then(this.tuner.getChannelAsync.bind(this.tuner))
         .then((channel) => {
           io.emit('fm:channel-changed', channel);
         })
@@ -61,19 +63,19 @@ class FMRadioController extends Controller {
       });
 
       io.on('fm:read-rds', (cb) => {
-        FMTuner.readRDSAsync()
+        this.tuner.readRDSAsync()
         .then(cb)
         .catch(errorFn);
       });
 
       io.on('fm:get-channel', (cb) => {
-        FMTuner.getChannelAsync()
+        this.tuner.getChannelAsync()
         .then(cb)
         .catch(errorFn);
       });
 
       io.on('fm:set-volume', (volume) => {
-        FMTuner.setVolumeAsync(volume).then(() => {
+        this.tuner.setVolumeAsync(volume).then(() => {
           io.emit('fm:volume-changed', volume);
         }).catch(errorFn);
       });
