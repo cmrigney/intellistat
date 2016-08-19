@@ -20,7 +20,34 @@ class FMRadioController extends Controller {
         io.emit('server-error', err);
       }
 
-      io.on('fm:power-on', () => {
+      socket.on('fm:get-state', (cb) => {
+        this.tuner.getChannelAsync()
+        .then((channel) => {
+          cb({ power: this.powerState, channel: channel });
+        })
+        .catch(errorFn);
+      });
+
+      socket.on('fm:get-power', (cb) => {
+        cb(this.powerState);
+      });
+
+      socket.on('fm:toggle-power', () => {
+        if(this.powerState) {
+          this.tuner.powerOffAsync().then(() => {
+            this.powerState = false;
+            io.emit('fm:power-changed', false);
+          }).catch(errorFn);
+        }
+        else {
+          this.tuner.powerOnAsync().then(() => {
+            this.powerState = true;
+            io.emit('fm:power-changed', true);
+          }).catch(errorFn);
+        }
+      });
+
+      socket.on('fm:power-on', () => {
         if(this.powerState)
           return;
         this.tuner.powerOnAsync().then(() => {
@@ -29,7 +56,7 @@ class FMRadioController extends Controller {
         }).catch(errorFn);
       });
 
-      io.on('fm:power-off', () => {
+      socket.on('fm:power-off', () => {
         if(!this.powerState)
           return;
         this.tuner.powerOffAsync().then(() => {
@@ -38,13 +65,13 @@ class FMRadioController extends Controller {
         }).catch(errorFn);
       });
 
-      io.on('fm:set-channel', (channel) => {
+      socket.on('fm:set-channel', (channel) => {
         this.tuner.setChannelAsync(channel).then(() => {
           io.emit('fm:channel-changed', channel);
         }).catch(errorFn);
       });
 
-      io.on('fm:seek-up', () => {
+      socket.on('fm:seek-up', () => {
         this.tuner.seekUpAsync()
         .then(this.tuner.getChannel.bind(this.tuner))
         .then((channel) => {
@@ -53,7 +80,7 @@ class FMRadioController extends Controller {
         .catch(errorFn);
       });
 
-      io.on('fm:seek-down', () => {
+      socket.on('fm:seek-down', () => {
         this.tuner.seekDownAsync()
         .then(this.tuner.getChannelAsync.bind(this.tuner))
         .then((channel) => {
@@ -62,19 +89,19 @@ class FMRadioController extends Controller {
         .catch(errorFn);
       });
 
-      io.on('fm:read-rds', (cb) => {
+      socket.on('fm:read-rds', (cb) => {
         this.tuner.readRDSAsync()
         .then(cb)
         .catch(errorFn);
       });
 
-      io.on('fm:get-channel', (cb) => {
+      socket.on('fm:get-channel', (cb) => {
         this.tuner.getChannelAsync()
         .then(cb)
         .catch(errorFn);
       });
 
-      io.on('fm:set-volume', (volume) => {
+      socket.on('fm:set-volume', (volume) => {
         this.tuner.setVolumeAsync(volume).then(() => {
           io.emit('fm:volume-changed', volume);
         }).catch(errorFn);
